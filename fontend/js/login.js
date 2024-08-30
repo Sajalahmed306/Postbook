@@ -1,4 +1,4 @@
-const handleLogin =() =>{
+const handleLogin = async () =>{
     const userIdInput = document.getElementById ('login-user-id');
     const passwordInput = document.getElementById('login-password');
     
@@ -9,7 +9,23 @@ const handleLogin =() =>{
         password: password,
 
     };
-        fetchUserInfo(user);
+     const userInfo = await fetchUserInfo(user);
+     console.log (userInfo);
+     const errorElement =document.getElementById("user-login-error");
+    
+     //  user data did not match 
+     if(userInfo.length === 0){
+        errorElement.classList.remove("hidden");
+   }
+
+   else {
+    errorElement.classList.add("hidden");
+
+    
+    // save user information before jumping to the another page 
+    localStorage.setItem("loggedInUser", JSON.stringify(userInfo[0]))
+    window.location.href = "post.html";
+}
 
 };
 
@@ -30,6 +46,8 @@ const fetchUserInfo = async (user) => {
     console.log("ERROR connecting to the server:", err);
    }
    finally{
-    console.log( "user info from server:", data);
+    return data;
    }
+
+
 };
