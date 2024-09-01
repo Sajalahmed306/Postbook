@@ -26,6 +26,7 @@ db.connect((err) => {
   console.log("MySQL is connected..");
 });
 
+
 // getting user data from server
 app.post('/getUserInfo', (req, res) =>{
  const {userId, password} = req.body; 
@@ -43,6 +44,23 @@ app.post('/getUserInfo', (req, res) =>{
 
   } );
 });
+
+app.get('/getAllPosts', (req, res)=>{
+  const sqlForAllPosts= `SELECT users.userName AS postedUserName, users.userImage AS postedUserImage, posta.postedTime, posta.postText, posta.postImageUrl FROM posta INNER JOIN users ON posta.postedUserId = users.userId ORDER BY posta.postedTime DESC`;
+  let  query = db.query(sqlForAllPosts, (err, result) =>{
+    if(err){
+      console.log("error loading all post from database", err);
+    throw err;
+    }
+    
+    else{
+      console.log(result);
+      res.send(result);
+    }
+  })
+});
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

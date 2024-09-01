@@ -2,10 +2,20 @@
   width: 80%;
   background-color:  rgb(209, 209, 235);
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   
   
 }
-
+.post{
+  width: 60% ;
+  padding: 10px;
+  border: 2px solid;
+  border-radius: 15px;
+  margin: 20px;
+    }
 .post-header{
   display: flex;
   align-items: center;
@@ -57,5 +67,27 @@
 .comment-text-container h4, p{
   margin: 0;
   margin-bottom: 5px;
+
+}
+.post-comment-input-field-holder{
+  width: 60%;
+}
+.post-comment-holder{
+  display: flex;
+  gap: 10px;
+}
+.postComment-input-field{
+  padding: 20px;
+  outline: none;
+  margin-bottom: 10px;
+  border: 1px solid;
+  border-radius: 8px;
+  width: 80%;
+}
+.postComment-btn{
+  padding: 10px;
+  background-color: #7c71df;
+  border-radius: 8px;
+  border: none;
 
 }
