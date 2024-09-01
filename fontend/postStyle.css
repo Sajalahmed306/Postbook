@@ -36,3 +36,26 @@
   border-radius: 8px;
   margin: 30px;
 }
+.comment{
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.comment-user-image img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.comment-text-container{
+  background-color: rgb(235, 189, 217);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.comment-text-container h4, p{
+  margin: 0;
+  margin-bottom: 5px;
+
+}
