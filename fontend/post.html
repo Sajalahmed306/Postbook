@@ -10,12 +10,29 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sevillana&display=swap" rel="stylesheet">
 </head>
-<body >
+<body onload="checkLoggedInUser()"; onunload="showLoggedUsername()";>
     <div class="header">
         <h3>Hello <span id="logged-username">UserName</span>
         </h3>
         <button onclick="logOut()" class="logoutBtn">Logout</button>
     </div>
+    <section id="add-post-container">
+        <h2>Add new Post</h2>
+        <div>
+            <textarea name="" id="newPost-text"
+            cols="30"
+            rows="10" placeholder="Add post text"></textarea>
+        </div>
+        <div>
+            <input type="text" name="" id="newPost-image" placeholder=" add post Image URL">
+        </div>
+        <div>
+            <button onclick="handleAddNewPost()" class="addPost-btn">
+                Post
+            </button>
+        </div>
+
+    </section>
     <section id="post-container">
         <div class="post">
             <div class="post-header">
@@ -231,6 +248,7 @@
         </div>
         
     </section>
+    
     <script src="./js/fetchData.js"></script>
 </body>
 </html>

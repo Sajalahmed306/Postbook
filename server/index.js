@@ -82,7 +82,7 @@ INNER JOIN users ON comments.commentedUserId = users.userId WHERE comments.comme
 });
 
 // adding new comments to a post
-app.post("/postComment", (req, res) => {
+app.post('/postComment', (req, res) => {
   const { commentOfPostId, commentedUserId, commentText, commentTime } = req.body;
 
   let sqlForAddingNewComments = "INSERT INTO comments (commentId, commentOfPostId, commentedUserId, commentText, commentTime) VALUES (NULL, ?, ?, ?, ?);";
@@ -99,7 +99,24 @@ app.post("/postComment", (req, res) => {
     }
   );
 });
+app.post('/addNewPost', (req, res)=>{
+// distructuring the req.body object
 
+const {postedUserId, postedTime, postText, postImageUrl} = req.body;
+// sql quary 
+let sqlForAddingNewPost = `INSERT INTO posts (postId, postedUserId, postedTime, postText, postImageUrl) 
+VALUES (NULL,  ?, ?, ?, '?)
+`;
+let query = db.query(sqlForAddingNewPost, [postedUserId, postedTime,postText,postImageUrl], (err, result)=>{
+  if(err){
+    console.log("Error while adding a new post in the data", err);
+    throw err;
+   }else{
+    res.send(result);
+   }
+})
+
+})
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
