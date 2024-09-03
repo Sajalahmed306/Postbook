@@ -10,9 +10,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sevillana&display=swap" rel="stylesheet">
 </head>
-<body>
-    <h3>Hello,
-    </h3>
+<body >
+    <div class="header">
+        <h3>Hello <span id="logged-username">UserName</span>
+        </h3>
+        <button onclick="logOut()" class="logoutBtn">Logout</button>
+    </div>
     <section id="post-container">
         <div class="post">
             <div class="post-header">
@@ -79,7 +82,7 @@
 
                 </div>
                 <div class="comment-button-holder">
-                    <button onClick= "handlePostComment" id="comment-btn" class="postComment-btn">comment</button>
+                    <button onClick= "handlePostComment()" id="comment-btn" class="postComment-btn">comment</button>
 
                 </div>
 

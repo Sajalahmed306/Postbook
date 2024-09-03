@@ -173,6 +173,36 @@
 
 // fetchAllPosts()
 
+const showLoggedUsername = () => {
+    const userNameElement = document.getElementById("logged-username");
+
+    // find username from local storage
+    let user = localStorage.getItem("loggedInUser");
+    if(user){
+        user = JSON.parse(user);
+    }
+
+    // show username in the webpage
+    userNameElement.innerText=user.userName;
+};
+
+const checkLoggedInUser =()=>{
+    let user = localStorage.getItem('loggedInUser');
+    if(user){
+        user = JSON. parse(user);
+
+    }else{
+        window.location.href="/index.html";
+    }
+}
+
+const logOut =() =>{ 
+    // clearing the localStorage
+    localStorage.clear();
+    checkLoggedInUser();
+  
+};
+
 
 const fetchAllPosts = async () => {
     let data;
@@ -184,6 +214,46 @@ const fetchAllPosts = async () => {
     } catch (err) {
         console.log("Error fetching data from server", err);
     };
+};
+
+const handlePostComment = async (postId) => {
+    let user = localStorage.getItem('loggedInUser');
+    if (user) {
+        user = JSON.parse(user);
+    }
+
+    const commentedUserId = user.userId;
+    const commentTextElement = document.getElementById(`postComment-input-for-postId-${postId}`);
+    const commentText = commentTextElement.value;
+
+    let now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    let timeOfComment = now.toDateString();
+
+    const commentObject = {
+        commentsOfPost: postId,
+        commentedUserId: commentedUserId,
+        commentText: commentText,
+        commentTime: timeOfComment,
+    };
+
+    try {
+        const res = await fetch("http://localhost:5000/postComment", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(commentObject),
+        });
+
+        const data = await res.json();
+        console.log('Comment posted successfully:', data);
+
+        // Optionally, refresh comments for this post
+        fetchAllPosts(); // Refresh the posts and comments after posting a comment
+    } catch (err) {
+        console.log("Error while sending data to the server: ", err);
+    }
 };
 
 const showAllPosts = async (allPosts) => {
@@ -274,3 +344,5 @@ const fetchAllCommentsOfAPost = async (postId) => {
 };
 
 fetchAllPosts();
+showLoggedUsername();
+checkLoggedInUser();
